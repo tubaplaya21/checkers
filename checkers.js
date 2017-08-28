@@ -162,7 +162,7 @@ function applyMove(x, y, move) {
       state.board[square.y][square.x] = null;
     });
     var index = move.landings.length - 1;
-    state.board[move.landings[index].y][move.landings[index].x] = state.board
+    state.board[move.landings[index].y][move.landings[index].x] = state.board[y][x];
     state.board[y][x] = null;
   }
 }
@@ -195,7 +195,42 @@ function nexTurn(){
 }
 
 function printBoard(){
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
 
+  ctx.fillStyle = 'red';
+  ctx.fillRect(10, 30, 20, 20);
+  ctx.fillRect(10, 70, 20, 20);
+  ctx.fillRect(10, 110, 20, 20);
+  ctx.fillRect(10, 150, 20, 20);
+  ctx.fillRect(30, 10, 20, 20);
+  ctx.fillRect(30, 50, 20, 20);
+  ctx.fillRect(30, 90, 20, 20);
+  ctx.fillRect(30, 130, 20, 20);
+  ctx.fillRect(50, 30, 20, 20);
+  ctx.fillRect(50, 70, 20, 20);
+  ctx.fillRect(50, 110, 20, 20);
+  ctx.fillRect(50, 150, 20, 20);
+  ctx.fillRect(70, 10, 20, 20);
+  ctx.fillRect(70, 50, 20, 20);
+  ctx.fillRect(70, 90, 20, 20);
+  ctx.fillRect(70, 130, 20, 20);
+  ctx.fillRect(90, 30, 20, 20);
+  ctx.fillRect(90, 70, 20, 20);
+  ctx.fillRect(90, 110, 20, 20);
+  ctx.fillRect(90, 150, 20, 20);
+  ctx.fillRect(110, 10, 20, 20);
+  ctx.fillRect(110, 50, 20, 20);
+  ctx.fillRect(110, 90, 20, 20);
+  ctx.fillRect(110, 130, 20, 20);
+  ctx.fillRect(130, 30, 20, 20);
+  ctx.fillRect(130, 70, 20, 20);
+  ctx.fillRect(130, 110, 20, 20);
+  ctx.fillRect(130, 150, 20, 20);
+  ctx.fillRect(150, 10, 20, 20);
+  ctx.fillRect(150, 50, 20, 20);
+  ctx.fillRect(150, 90, 20, 20);
+  ctx.fillRect(150, 130, 20, 20);
 }
 
 function main(){
