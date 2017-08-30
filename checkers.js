@@ -195,15 +195,21 @@ function nexTurn(){
 }
 
 function printBoard(){
-  state.board.forEach(function(row){
+  console.log("  a b c d e f g h i j");
+  state.board.forEach(function(row, index){
     var ascii = row.map(function(square){
       if(square) return '_';
       else return square;
     });
-    console.log(ascii);
+    console.log(index, ascii);
   });
 }
 
 function main(){
+  printBoard();
 
+  console.log(state.turn + "'s turn");
+  console.log("Pick a piece to move, (letter, nummber)");
 }
+
+main();
