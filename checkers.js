@@ -277,7 +277,7 @@ function main() {
           var command = answer.substring(0,1);
           if (command === 'c') return;
           command = parseInt(command);
-        }
+        })
       }
     }
   });
