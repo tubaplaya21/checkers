@@ -194,6 +194,7 @@ function checkForVictory(){
 function nexTurn(){
   if(state.turn == 'b') state.turn = 'w';
   else state.turn = 'b';
+<<<<<<< HEAD
 }
 
 function printBoard(){
@@ -250,4 +251,47 @@ if(N mod low = 0){
   else{
     fact = new list
   }
+=======
+>>>>>>> b3a740894d72ba5adfda7e45dc459ba2fae58bdc
 }
+
+function printBoard(){
+  console.log("  a   b   c   d    e   f   g   h   i   j");
+  state.board.forEach(function(row, index){
+    var ascii = row.map(function(square){
+      if(!square) return '_';
+      else return square;
+    }).join('|');
+    console.log(index, ascii);
+  });
+}
+
+function main(){
+  const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+  printBoard();
+
+  console.log(state.turn + "'s turn");
+  rl.question("Pick a piece to move, (letter, nummber)", function(answer) {
+    var match = /([a-j],.\s.[0-9])/.exec(answer);
+    if(match) {
+      var x = match[1].charCodeAt(0) - 97;
+      var y = parseInt(match[0]);
+      var piece = state.board[y][x];
+      var moves = getLegalMoves(piece, x, y);
+      moves.forEach(function(move){
+        if(moves.type == 'slide'){
+          console.log("You can slide to " + String.fromCharacterCode(97 + x) + "," + y);
+        } else {
+          console.log("You can jump to ");
+        }
+      })
+    }
+  });
+
+}
+
+main();
