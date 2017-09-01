@@ -230,7 +230,7 @@ function main(){
           console.log("You can jump to ");
         }
       })
-      rl.question("Pick your move from the list:", (function(answer){
+      rl.question("Pick your move from the list:", function(answer){
         var command = answer.substring(0,1);
         if (command === 'c') return;
         command = parseInt(command);
