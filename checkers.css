@@ -1,1 +1,19 @@
 /* checkers.css */
+#game-board{
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 1020px;
+  height: 1020px;
+}
+
+.square{
+  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+}
+
+.black{
+  background-color: darkgrey;
+}

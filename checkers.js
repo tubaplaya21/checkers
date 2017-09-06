@@ -1,14 +1,5 @@
 // checkers.js
 
-/* Require statements */
-const readline = require('readline');
-
-// initialize readline as a global variable
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
 /** The state of the game */
 var state = {
   over: false,
@@ -207,95 +198,19 @@ function nextTurn() {
   else state.turn = 'b';
 }
 
-/** @function printBoard
-  * Prints the current state of the game board
-  * to the console.
-  */
-function printBoard() {
-  console.log()
-  console.log("   a b c d e f g h i j");
-  state.board.forEach(function(row, index){
-    var ascii = row.map(function(square){
-      if(!square) return '_';
-      else return square;
-    }).join('|');
-    console.log(index, ascii);
-  });
-  console.log('\n');
-}
-
-/** @function getJumpString
-  * Helper function to get the results of a jump move
-  * as a printable string.
-  * @return {String} A string describing the jump sequence
-  */
-function getJumpString(move) {
-  var jumps = move.landings.map(function(landing) {
-    return String.fromCharCode(97 + landing.x) + "," + landing.y;
-  }).join(' to ');
-  return "jump to " + jumps + " capturing " + move.captures.length + " piece" + ((move.captures.length > 1)?'s':'');
-}
-
-/** @function processTurn
-  * Process a single player's turn, prompting them
-  * to make a move, check for victory conditions,
-  * and change turns.
-  */
-function processTurn() {
-  // print the board
-  printBoard();
-  // offer instructions
-  console.log(state.turn + "'s turn");
-  rl.question("Pick a piece to move, (letter, number): ", function(answer) {
-    // Figure out what piece the user asked to move
-    var match = /([a-j]),?\s?([0-9])/.exec(answer);
-    if(match) {
-      var x = match[1].toLowerCase().charCodeAt(0) - 'a'.charCodeAt(0);
-      var y = parseInt(match[2]);
-      var piece = state.board[y][x];
-      // Get available moves
-      var moves = getLegalMoves(piece, x, y);
-      if(moves.length === 0) {
-        console.log("\nNo legal moves for ", piece, "at", x, ",", y);
-        return processTurn();
-      }
-      // Print available moves
-      console.log("\nAvailable moves for ", match[1] + "," + match[2]);
-      console.log("C. Cancel")
-      moves.forEach(function(move, index) {
-        if(move.type === 'slide') {
-          console.log(index + ". You can slide to " + String.fromCharCode(97 + move.x) + "," + move.y);
-        } else {
-          console.log(index + ". You can " + getJumpString(move));
-        }
-      })
-      // Prompt the user to pick a move
-      rl.question("Pick your move from the list:", function(answer) {
-        if(answer.substring(0,1) === 'c') return processTurn();
-        var command = parseInt(answer);
-        if(isNaN(command) || command >= moves.length) return processTurn();
-        applyMove(x,y,moves[command]);
-        // Check for game end conditions
-        var result = checkForVictory();
-        if(result) {
-          console.log(result);
-          return;
-        }
-        // Trigger next turn
-        nextTurn();
-        return processTurn();
-      });
+/**@function setup
+Sets up the game invironment
+**/
+function setup(){
+  var board = document.createElement('section');
+  board.id = 'game-board';
+  document.body.appendChild(board);
+  for(var y = 0; y < state.board.length; y++){
+    for(var x = 0; x < state.board.length; x++){
+      var square = document.createElement('div');
+      square.classList.add('square');
+      if((y+x) % 2 === 1) square.classList.add('black');
+      board.appendChild(square)
     }
-  });
+  }
 }
-
-/** @function main
-  * Entry point to the program.
-  * Starts the checkers game.
-  */
-function main() {
-  // Start the game with the first player's turn.
-  processTurn();
-}
-
-main();
