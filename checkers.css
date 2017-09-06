@@ -26,10 +26,20 @@
   box-shadow: 8px 8px 8px gray;
 }
 
-.checker-w{
-  background-color: ivory
+.checker-w, .checker-wk {
+  background-color: ivory;
 }
 
-.checker-b{
+.checker-b, .checker-bk {
   background-color: black;
+}
+
+.square.highlight {
+  background-color: yellow;
+}
+
+.checker.highlight {
+  border: 3px solid yellow;
+  width: 80px;
+  height: 80px;
 }

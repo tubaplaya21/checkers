@@ -201,12 +201,27 @@ function nextTurn() {
 /** @function handleCheckerClick
   * Click handler for checker
   */
-function handleCheckerClick(event){
+function handleCheckerClick(event) {
   event.preventDefault();
   var parentId = event.target.parentElement.id;
-  var x = parseInt(parentId.CharAt(7));
-  var y = parseInt(parentId.CharAt(9));
+  var x = parseInt(parentId.charAt(7));
+  var y = parseInt(parentId.charAt(9));
+  var piece = state.board[y][x];
+  // Clear old highlights
+  clearHighlights();
+  // Make sure the checker is the player's
+  if(piece.charAt(0) !== state.turn) return;
+  // Get legal moves
   var moves = getLegalMoves(state.board[y][x], x, y);
+  // mark checker to move
+  event.target.classList.add('highlight');
+  // Mark squares available for moves
+  moves.forEach(function(move){
+    if(move.type === 'slide') {
+      var square = document.getElementById('square-' + move.x + '-' + move.y);
+      square.classList.add('highlight');
+    }
+  })
 }
 
 /** @function setup
@@ -226,9 +241,11 @@ function setup(){
         var checker = document.createElement('div');
         checker.classList.add('checker');
         checker.classList.add('checker-' + state.board[y][x]);
-        checker.onclick = event
+        checker.onclick = handleCheckerClick;
         square.appendChild(checker);
       }
     }
   }
 }
+
+setup();
