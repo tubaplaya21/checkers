@@ -198,9 +198,20 @@ function nextTurn() {
   else state.turn = 'b';
 }
 
-/**@function setup
-Sets up the game invironment
-**/
+/** @function handleCheckerClick
+  * Click handler for checker
+  */
+function handleCheckerClick(event){
+  event.preventDefault();
+  var parentId = event.target.parentElement.id;
+  var x = parseInt(parentId.CharAt(7));
+  var y = parseInt(parentId.CharAt(9));
+  var moves = getLegalMoves(state.board[y][x], x, y);
+}
+
+/** @function setup
+  * Sets up the game invironment
+  */
 function setup(){
   var board = document.createElement('section');
   board.id = 'game-board';
@@ -210,7 +221,14 @@ function setup(){
       var square = document.createElement('div');
       square.classList.add('square');
       if((y+x) % 2 === 1) square.classList.add('black');
-      board.appendChild(square)
+      board.appendChild(square);
+      if(state.board[y][x]){
+        var checker = document.createElement('div');
+        checker.classList.add('checker');
+        checker.classList.add('checker-' + state.board[y][x]);
+        checker.onclick = event
+        square.appendChild(checker);
+      }
     }
   }
 }

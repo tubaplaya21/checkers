@@ -17,3 +17,19 @@
 .black{
   background-color: darkgrey;
 }
+
+.checker{
+  width: 90px;
+  height: 90px;
+  margin: 5px;
+  border-radius: 50%;
+  box-shadow: 8px 8px 8px gray;
+}
+
+.checker-w{
+  background-color: ivory
+}
+
+.checker-b{
+  background-color: black;
+}
