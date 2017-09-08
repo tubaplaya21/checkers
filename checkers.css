@@ -38,8 +38,12 @@
   background-color: yellow;
 }
 
+.square.droptarget {
+  background-color: orange;
+}
+
 .checker.highlight {
   border: 3px solid yellow;
-  width: 80px;
-  height: 80px;
+  width: 85px;
+  height: 85px;
 }

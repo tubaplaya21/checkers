@@ -209,9 +209,37 @@ function nextTurn() {
   */
 function clearHighlights() {
   var highlighted = document.querySelectorAll('.highlight');
-  highlighted.forEach(function(square){
-    square.classList.remove('highlight');
+  highlighted.forEach(function(elem){
+    elem.classList.remove('highlight');
+    elem.classList.remove('droptarget');
+    elem.draggable = false;
+    elem.ondragover = undefined;
+    elem.ondragleave = undefined;
+    elem.ondrop = undefined;
   });
+}
+
+function handleDragOverSquare(event){
+  event.preventDefault();
+  event.target.classList.add('droptarget');
+}
+
+function handleDragLeaveSquare(event){
+  event.preventDefault();
+  event.target.classList.remove('droptarget');
+}
+
+function handleDropSquare(event){
+  event.preventDefault();
+  var parentId = event.target.parent.id;
+  var x = parseInt(parentId.charAt(7));
+  var y = parseInt(parentId.charAt(9));
+  applyMove(x, y, event.target.dataset.move);
+  switch(event.target.dataset.move.type){
+    case 'slide':
+      var checker = event.target.parent.removeChild(event.target);
+      event.currentTarget.appendChild(checker);
+  }
 }
 
 /** @function handleCheckerClick
@@ -231,11 +259,16 @@ function handleCheckerClick(event) {
   var moves = getLegalMoves(state.board[y][x], x, y);
   // mark checker to move
   event.target.classList.add('highlight');
+  event.target.draggable = true;
   // Mark squares available for moves
   moves.forEach(function(move){
     if(move.type === 'slide') {
       var square = document.getElementById('square-' + move.x + '-' + move.y);
       square.classList.add('highlight');
+      square.ondragover = handleDragOverSquare;
+      square.ondragleave = handleDragLeaveSquare;
+      square.ondrop = handleDropSquare;
+      square.dataset.moves = move;
     }
   })
 }
