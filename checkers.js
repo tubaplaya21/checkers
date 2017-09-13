@@ -231,10 +231,11 @@ function handleDragLeaveSquare(event){
 
 function handleDropSquare(event){
   event.preventDefault();
-  var parentId = event.target.parent.id;
+  var parentId = event.target.parentElement.id;
   var x = parseInt(parentId.charAt(7));
   var y = parseInt(parentId.charAt(9));
-  applyMove(x, y, event.target.dataset.move);
+  var move = event.target.dataset.move;
+  applyMove(x, y, move);
   switch(event.target.dataset.move.type){
     case 'slide':
       var checker = event.target.parent.removeChild(event.target);
