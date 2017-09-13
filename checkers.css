@@ -1,1 +1,6 @@
 /* checkers.css */
+canvas {
+  border: solid 1px black;
+  box-shadow: 5px 5px 5px darkgrey;
+  position: relative;
+}
