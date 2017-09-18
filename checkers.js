@@ -360,6 +360,16 @@ function hoverOverChecker(event) {
     ctx.arc(x*100+50, y*100+50, 40, 0, Math.PI * 2);
     ctx.stroke();
     // TODO: Highlight possible moves
+    if(state.board[y-1][x-1] == null){
+      ctx.beginPath();
+      ctx.arc((x-1)*100+50, (y-1)*100+50, 40, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    if(state.board[y-1][x+1] == null){
+      ctx.beginPath();
+      ctx.arc((x+1)*100+50, (y-1)*100+50, 40, 0, Math.PI * 2);
+      ctx.stroke();
+    }
   }
 }
 
